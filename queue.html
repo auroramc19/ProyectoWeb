@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="css/stylehorizontal.css" media="screen">
-    <!-- <script src="js/pila.js"></script> -->
-    <script src="js/referencia.js"></script>
+    <script src="js/cola.js"></script>
+    <!-- <script src="js/referencia.js"></script> -->
 </head>
 <body>
     <section id="bloque">
@@ -13,13 +13,25 @@
            <canvas id="cv-diagrama"></canvas>
        </div>
        <div id="code">
+           <div>
+               <p>Struct queue{</p>
+               <p> &nbsp;&nbsp;&nbsp;&nbsp;int val; </p>
+               <p> &nbsp;&nbsp;&nbsp;&nbsp;queue next; </p>
+               <p> } </p>
+           </div>
+           <div>
+               <p>Struct queue{</p>
+               <p> &nbsp;&nbsp;&nbsp;&nbsp;int val; </p>
+               <p> &nbsp;&nbsp;&nbsp;&nbsp;queue next; </p>
+               <p> }x </p>
+           </div>
        </div> 
     </section>
     <div id="opt">
         <ul>
-            <li><button id="div-opt">Push</button></li>
-            <li><button id="div-opt">Pop</button></li>
-            <li><button id="div-opt">IsEmpty</button></li>
+            <li><button class="div-opt">enqueve</button></li>
+            <li><button class="div-opt">dequeve</button></li>
+            <li><button class="div-opt">isEmpty</button></li>
         </ul>
     </div>
     
