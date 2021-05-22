@@ -1,0 +1,52 @@
+
+@font-face {
+    font-family: consola;
+    src: url(fuentes/Inconsolata-Black.ttf);
+}
+body{
+    background-color: rgb(255, 255, 255);
+}
+.resaltar{
+    background-color: #ff0;
+}
+#bloque{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+}
+#diagrama{
+    /* margin-left: 10px; */
+    background-color: aqua;
+    
+}
+#code{
+    background-color: blue;
+    /* margin-top: 10px; */
+}
+#code p{
+    font-family: consola, monospace;
+    margin: 2px;
+}
+/* Opt */
+#opt{
+    margin: 20px;
+}
+#opt ul {
+    list-style: none;  
+    margin: 0;
+    padding: 0;
+}
+#opt ul li{
+    display: inline-block;
+}
+#opt ul li a{
+    color: white;
+    display: block;
+    padding: 30px 20px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 1.4em;
+    text-decoration: none;
+}
+#opt ul li a:hover{
+    background-color: rgb(0, 201, 134);
+}
