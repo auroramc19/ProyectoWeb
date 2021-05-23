@@ -9,21 +9,18 @@
 </head>
 <body>
     <section id="bloque">
-       <div id="diagrama">
-           <canvas id="cv-diagrama"></canvas>
-       </div>
+        <div id="diagrama">
+            <!-- <canvas id="cv-diagrama" class="nodo"></canvas><canvas id="cv-diagrama" class="nodo"></canvas><canvas id="cv-diagrama" class="nodo"></canvas><canvas id="cv-diagrama" class="nodo"></canvas> -->
+        </div>
        <div id="code">
            <div>
-               <p>Struct queue{</p>
+               <p>Struct nodo{</p>
                <p> &nbsp;&nbsp;&nbsp;&nbsp;int val; </p>
-               <p> &nbsp;&nbsp;&nbsp;&nbsp;queue next; </p>
-               <p> } </p>
-           </div>
-           <div>
-               <p>Struct queue{</p>
-               <p> &nbsp;&nbsp;&nbsp;&nbsp;int val; </p>
-               <p> &nbsp;&nbsp;&nbsp;&nbsp;queue next; </p>
-               <p> }x </p>
+               <p> &nbsp;&nbsp;&nbsp;&nbsp;struct nodo *next; </p>
+               <p> }; </p>
+               <p><br></p>
+               <p> struct nodo *raiz=NULL;</p>
+               <p> struct nodo *fondo=NULL;</p>
            </div>
        </div> 
     </section>
@@ -32,6 +29,8 @@
             <li><button class="div-opt">enqueve</button></li>
             <li><button class="div-opt">dequeve</button></li>
             <li><button class="div-opt">isEmpty</button></li>
+            <li><p id="mensaje">Ingresa un valor del 1 al 99,999</p></li>
+            <li><input type="number" min="0" max="99999" value="1" id="valor"></li>
         </ul>
     </div>
     

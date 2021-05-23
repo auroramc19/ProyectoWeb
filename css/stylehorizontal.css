@@ -2,6 +2,10 @@
     font-family: consola;
     src: url(fuentes/Inconsolata-Black.ttf);
 }
+@font-face {
+    font-family: oswald;
+    src: url(fuentes/Oswald-Bold.ttf);
+}
 body{
     background-color: rgb(255, 255, 255);
 }
@@ -13,16 +17,25 @@ body{
     /*          row */
     flex-flow: column nowrap;
     justify-content: space-around;
+    align-items: center;
+    background-color: red;
 }
-#diagrama{
+#digrama{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+}
+.nodo{
     margin-top: 10px;
-    /* background-color: aqua; */
+    height: 70px;
+    width: 70px;
+    background-color: rgb(0, 104, 104);
 }
 
 /* Codigo c */
 #code{
     /* background-color: blue; */
-    margin-top: 10px;
+    margin-top: 30px;
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
@@ -53,4 +66,7 @@ body{
 }
 #opt ul li button:focus{
     background-color: rgb(0, 201, 134);
+}
+#mensaje{
+    font-family: oswald;
 }
