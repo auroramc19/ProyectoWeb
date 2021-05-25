@@ -20,7 +20,15 @@ class Queue{
         if(pos > 0 && pos < sz)
             return this.queue[pos];
     }
+    firstElement(){
+        return this.queue[0];
+    }
+    lastElement(){
+        let sz = this.queue.length - 1;
+        return this.queue[sz];
+    }
 }
+let contador = 0;
 
 var queue = new Queue();
 
@@ -40,7 +48,17 @@ function addCode(x, cod){
 }
 
 function cargarCanvas(nodeval){
-        document.getElementById('diagrama').innerHTML += '<canvas id="cv-diagrama" class="nodo"></canvas>';
+    if(nodeval == -1)
+    
+    document.getElementById('diagrama').innerHTML += '<canvas id="cv-diagrama" class="nodo"></canvas>';
+
+
+
+
+
+
+    let siz = queue.size();
+
     // var canvas = document.getElementById("cv-diagrama");
     var canvas = document.getElementsByClassName("nodo");
     for(let xaux =0; xaux < canvas.length; xaux++){
@@ -76,7 +94,7 @@ function cargarCanvas(nodeval){
     }
 }
 
-//posiblemente no necesario
+//posicionamiento de los numeros
 function acomodar(aux){
     if(aux < 0 || aux > 99999)
         return -1;
@@ -97,6 +115,7 @@ function carga(){
     opt[1].addEventListener("click", function(){addCode(1, cod);}, false); 
     opt[2].addEventListener("click", function(){addCode(2, cod);}, false);
 
+    cargarCanvas(valor);
 }
 
 //Espera a que cargue la pagina
