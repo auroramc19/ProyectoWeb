@@ -27,6 +27,9 @@ class Queue{
         let sz = this.queue.length - 1;
         return this.queue[sz];
     }
+    parseArray(){
+        return this.queue;
+    }
 }
 let contador = 0;
 
@@ -51,7 +54,12 @@ function addCode(x, cod){
 function cargarCanvas(nodeval){
     // var canvas = document.getElementById("cv-diagrama");
     var canvas = document.getElementsByClassName("nodo");
-    for(let xaux =0; xaux < canvas.length; xaux++){
+    let cvsz = canvas.length;
+    if(cvsz > 1)
+        document.getElementById('diagrama').innerHTML += '<canvas id="cv-diagrama" class="nodo"></canvas>';
+    cvsz = canvas.length;
+
+    for(let xaux =0; xaux < cvsz; xaux++){
             canvas[xaux].setAttribute("width",300);
             canvas[xaux].setAttribute("height",300);
         var ctx = canvas[xaux].getContext("2d");
@@ -80,6 +88,7 @@ function cargarCanvas(nodeval){
             ctx.lineTo(300, 150);
             ctx.lineWidth = 17;
             ctx.stroke();
+
         }
     }
 }
