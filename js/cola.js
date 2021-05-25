@@ -38,7 +38,8 @@ function addCode(x, cod){
         document.getElementById("code").innerHTML = cod + code_enqueve;
 
         var valor = document.getElementById("valor").value;
-        queue.push(valor);
+        // queue.push(valor);
+        document.getElementById('diagrama').innerHTML += '<canvas id="cv-diagrama" class="nodo"></canvas>';
         cargarCanvas(valor);
     }
     if(x==1)
@@ -48,17 +49,6 @@ function addCode(x, cod){
 }
 
 function cargarCanvas(nodeval){
-    if(nodeval == -1)
-    
-    document.getElementById('diagrama').innerHTML += '<canvas id="cv-diagrama" class="nodo"></canvas>';
-
-
-
-
-
-
-    let siz = queue.size();
-
     // var canvas = document.getElementById("cv-diagrama");
     var canvas = document.getElementsByClassName("nodo");
     for(let xaux =0; xaux < canvas.length; xaux++){
@@ -115,7 +105,6 @@ function carga(){
     opt[1].addEventListener("click", function(){addCode(1, cod);}, false); 
     opt[2].addEventListener("click", function(){addCode(2, cod);}, false);
 
-    cargarCanvas(valor);
 }
 
 //Espera a que cargue la pagina
