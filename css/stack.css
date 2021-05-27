@@ -1,0 +1,88 @@
+*{
+    margin: 0%;
+    padding: 0%;
+}
+body{
+    margin: 0;
+    font-size: 20px;
+    font-family: sans-serif;
+}
+
+h2{
+    font-size: 2.5rem;
+    text-align: center;
+    color: #1564bf;
+}
+h1:first-child{
+    font-size: 1.7rem;
+}
+h1{
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 0;
+    margin-top: 0;
+    color: white;
+
+}
+img{
+    max-width: 80%;
+    border-style: none;
+}
+
+/* HEADER */
+.barra {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #003c8f;
+}
+.img-barra{
+    flex-basis: 8%;
+    padding: 5px;
+}
+.img-barra:last-child{
+    flex-basis: 13%;
+}
+.txt-barra{
+    padding: 0 6rem;
+    letter-spacing: 0.06em;
+}
+.contenedor {
+    width: 80%;
+    max-width: 120rem;
+    margin: 0 auto;
+}
+.credits{
+    font-size: 17px;
+    text-align: left;
+    color: black;
+    padding: 1rem;
+}
+.cont{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: stretch;
+    flex-basis: 40%;
+}
+/* MAIN */
+main{
+    background-color: #f7f5f5;
+    display: grid;
+    grid-template-columns: 40% 60%;
+}
+#diagrama-cv{
+    padding-top: 5%;
+}
+#interfaz{
+    padding-top: 5%;
+    padding-left: 5%;
+    padding-right: 10%;
+}
+#interaction{
+    background-color: blue;
+    display: grid;
+    grid-template-columns: 8% auto auto auto auto;
+    align-items: center;
+    
+}

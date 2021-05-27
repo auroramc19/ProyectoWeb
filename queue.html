@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/stylehorizontal.css" media="screen">
+    <script src="js/cola.js"></script>
+    <!-- <script src="js/referencia.js"></script> -->
+</head>
+<body>
+    <section id="bloque">
+        <div id="diagrama">
+            <!-- <canvas id="cv-diagrama" class="nodo"></canvas><canvas id="cv-diagrama" class="nodo"></canvas><canvas id="cv-diagrama" class="nodo"></canvas><canvas id="cv-diagrama" class="nodo"></canvas> -->
+        </div>
+       <div id="code">
+           <div>
+               <p>Struct nodo{</p>
+               <p> &nbsp;&nbsp;&nbsp;&nbsp;int val; </p>
+               <p> &nbsp;&nbsp;&nbsp;&nbsp;struct nodo *next; </p>
+               <p> }; </p>
+               <p><br></p>
+               <p> struct nodo *raiz;</p>
+               <p> struct nodo *fondo;</p>
+           </div>
+       </div> 
+    </section>
+    <div id="opt">
+        <ul>
+            <li><button class="div-opt">enqueve</button></li>
+            <li><button class="div-opt">dequeve</button></li>
+            <li><button class="div-opt">isEmpty</button></li>
+            <li><p id="mensaje">Ingresa un valor del 1 al 99,999</p></li>
+            <li><input type="number" min="0" max="99999" value="1" id="valor"></li>
+        </ul>
+    </div>
+    
+</body>
+</html>
