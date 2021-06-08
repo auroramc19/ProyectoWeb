@@ -1,5 +1,5 @@
 var code; //codigo inicial
-var canvas;
+//var canvas;
 var context;
 var windoWidth;
 var windoHeight;
@@ -75,7 +75,7 @@ function loadEvent(){
      windoWidth = window.innerWidth;
      windoHeight = window.innerHeight;
 
-     canvas = document.getElementById("diagrama-cv");
+     let canvas = document.getElementById("diagrama-cv");
      context = canvas.getContext("2d");
 //Modificar tamaño del canvas
      let wd = windoWidth, wh = windoHeight*0.32;
@@ -99,14 +99,14 @@ function activeButton(available){
     let button=document.getElementsByClassName("div-opt");
     for(i=0;i<button.length;i++) button[i].disabled=available;
 }
-
+//Agregar nodo
 function enqueve(){
     if(attempt!=7){
         activeButton(true); 
         attempt++;
         document.getElementById("code").innerHTML = code + code_enqueve;
         let number = parseInt(document.getElementById("valor").value);
-        let xaux = xposx * (attempt);
+        let xaux = xposx * attempt;
 
         let circle = new Circle(xaux, yposy, number);
         //Dibujar flecha
@@ -127,13 +127,13 @@ function enqueve(){
         }
         // console.log(circle.ypos);
         updateCircle();
-        localStorage.setItem("circle"+attempt,number);
+        localStorage.setItem("qcircle"+attempt,number);
     }
     else return alert("La cola esta llena. No es posible agregar más nodos.")
 }
 
 function update(circle){
-        context.clearRect(circle.xpos-31,circle.ypos-39,70,72);
+        context.clearRect(circle.xpos-31,circle.ypos-39,63,72);
         circle.draw();
         circle.radious+=1;
 }
@@ -168,7 +168,7 @@ function dequeve(){
                     else circleArray.pop();
                 }
 
-                if(sza == 0) 
+                if(sza == 0)
                     activeButton(false);
                 else 
                     arrowDelete();
@@ -180,11 +180,11 @@ function dequeve(){
             invers(circle);
         }
         discardCircle();
-        localStorage.removeItem("circle1");
+        localStorage.removeItem("qcircle1");
         for(let x = 1; x<attempt; x++){
-            localStorage.setItem("circle"+x, localStorage.getItem("circle"+(x+1)));
+            localStorage.setItem("qcircle"+x, localStorage.getItem("qcircle"+(x+1)));
         }
-        localStorage.removeItem("circle"+attempt);
+        localStorage.removeItem("qcircle"+attempt);
         attempt--;
     }
     else return alert("Error. No hay nodos existentes");
@@ -274,11 +274,12 @@ function loadQueue(){
     //nueva instancia
     circleArray=[];
     arrowArray=[];
-    for(var j=0;j<8;j++){
-        if(localStorage.getItem("circle"+j)){
-            document.getElementById("valor").value = parseInt(localStorage.getItem("circle"+j));
+    for(var j=1;j<8;j++){
+        if(localStorage.getItem("qcircle"+j)){
+            document.getElementById("valor").value = parseInt(localStorage.getItem("qcircle"+j));
             enqueve();
         }
+        else break;
     }
 }
 
