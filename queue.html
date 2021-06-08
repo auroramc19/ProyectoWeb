@@ -3,36 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="css/stylehorizontal.css" media="screen">
-    <script src="js/cola.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/queue.css" media="screen">
+    <script src="js/queue.js"></script>
     <!-- <script src="js/referencia.js"></script> -->
 </head>
 <body>
+    <header class="barra">
+        <div class="img-barra">
+            <img src="img/ipn.png" alt="IPN logo">
+        </div>
+        <div class="txt-barra">
+            <h1>Instituto Politécnico Nacional</h1>
+            <h1>Escuela Superior de Cómputo</h1>
+        </div>
+        <div class="img-barra">
+            <img src="img/escom.png" alt="ESCOM logo">
+        </div>
+    </header>
+
     <section id="bloque">
         <div id="diagrama">
-            <!-- <canvas id="cv-diagrama" class="nodo"></canvas><canvas id="cv-diagrama" class="nodo"></canvas><canvas id="cv-diagrama" class="nodo"></canvas><canvas id="cv-diagrama" class="nodo"></canvas> -->
+            <canvas id="diagrama-cv"></canvas>
         </div>
-       <div id="code">
-           <div>
-               <p>Struct nodo{</p>
-               <p> &nbsp;&nbsp;&nbsp;&nbsp;int val; </p>
-               <p> &nbsp;&nbsp;&nbsp;&nbsp;struct nodo *next; </p>
-               <p> }; </p>
-               <p><br></p>
-               <p> struct nodo *raiz;</p>
-               <p> struct nodo *fondo;</p>
-           </div>
-       </div> 
+        <div id="code">
+            <div>
+                <p>Struct nodo{</p>
+                <p> &nbsp;&nbsp;&nbsp;&nbsp;int val; </p>
+                <p> &nbsp;&nbsp;&nbsp;&nbsp;struct nodo *next; </p>
+                <p> }; </p>
+                <p><br></p>
+                <p> struct nodo *raiz;</p>
+                <p> struct nodo *fondo;</p>
+                <p> typedef struct nodo NODO; </p>
+            </div>
+        </div> 
     </section>
     <div id="opt">
         <ul>
             <li><button class="div-opt">enqueve</button></li>
             <li><button class="div-opt">dequeve</button></li>
             <li><button class="div-opt">isEmpty</button></li>
-            <li><p id="mensaje">Ingresa un valor del 1 al 99,999</p></li>
+            <li><button class="div-opt">Cargar cola guardada</button></li>
+            <li><p id="mensaje">Ingresa Un Numero: </p></li>
             <li><input type="number" min="0" max="99999" value="1" id="valor"></li>
         </ul>
     </div>
-    
+
+    <footer class="site-footer">
+        <div class="contenedor contenedor-footer">
+            <nav class="navegacion">
+                <a href="https://github.com/auroramc19/ProyectoWeb">GitHub</a>
+            </nav>
+            <p  class="copyright ">Todos los Derechos Reservados 2021 &copy; </p>
+        </div>
+    </footer>
+
 </body>
 </html>
