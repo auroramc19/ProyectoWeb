@@ -121,13 +121,13 @@ function enqueve(){
                 cancelAnimationFrame(updateCircle);
                 activeButton(false);
             }
-            else
-                requestAnimationFrame(updateCircle);
+            else requestAnimationFrame(updateCircle);
+
             update(circle);
         }
         // console.log(circle.ypos);
         updateCircle();
-        // localStorage.setItem("circle"+attempt,number);
+        localStorage.setItem("circle"+attempt,number);
     }
     else return alert("La cola esta llena. No es posible agregar más nodos.")
 }
@@ -149,6 +149,7 @@ function invers(circle){
 
 function dequeve(){
     document.getElementById("code").innerHTML = code + code_dequeve;
+    let sza = arrowArray.length;
     if(attempt!=0){
         activeButton(true);
 
@@ -158,69 +159,65 @@ function dequeve(){
                 requestAnimationFrame(discardCircle);
             }
             else{
-                if(arrowArray.length == 0) activeButton(false);
+
+                let szc = circleArray.length;
+                for(let x = 0; x<szc; x++){
+                    if(x+1 != szc){
+                        circleArray[x] = circleArray[x+1];
+                    }
+                    else circleArray.pop();
+                }
+
+                if(sza == 0) 
+                    activeButton(false);
+                else 
+                    arrowDelete();
+
+
+                // reDraw();
                 cancelAnimationFrame(discardCircle);
             }
             invers(circle);
         }
         discardCircle();
-        // localStorage.removeItem("circle"+(attempt-1));
-
-        let szc = circleArray.length;
-        for(let x = 0; x<szc; x++){
-            if(x+1 != szc){
-                // circleArray[x+1].xpos = circleArray[x].xpos;
-                // circleArray[x+1].ypos = circleArray[x].ypos;
-                circleArray[x] = circleArray[x+1];
-            }
-            else 
-                circleArray.pop();
+        localStorage.removeItem("circle1");
+        for(let x = 1; x<attempt; x++){
+            localStorage.setItem("circle"+x, localStorage.getItem("circle"+(x+1)));
         }
-
-        let sza = arrowArray.length;
-        if(sza != 0){
-            let arr = arrowArray[0];
-            arr.xanim = 1;
-            arr.yanim = 30;
-
-            let arrowDel = function(){
-                if(arr.ready == 1){
-                    activeButton(false);
-                    cancelAnimationFrame(arrowDel);
-                }
-                else{
-                    // activeButton(true);
-                    requestAnimationFrame(arrowDel);
-                }
-                arrowDeleteAnimation(arr);
-            }
-            arrowDel();
-
-            szc = arrowArray.length;
-            for(x = 0; x<szc; x++){
-                if(x+1 != szc){
-                    // arrowArray[x+1].x1 = arrowArray[x].x1;
-                    // arrowArray[x+1].y1 = arrowArray[x].y1;
-                    // arrowArray[x+1].x2 = arrowArray[x].x2;
-                    // arrowArray[x+1].y2 = arrowArray[x].y2;
-                    arrowArray[x] = arrowArray[x+1];
-                }
-                else 
-                    arrowArray.pop();
-            }
-        }
-
-        // context.clearRect(0, 0, windoWidth, windoHeight*0.32);
-        // for(x = 0; x<circleArray.length; x++){
-        //    circleArray[x].draw(); 
-        // }
-        // for(x = 0; x<arrowArray.length; x++)
-        //     arrowArray[x].draw();
-        
-        // activeButton(false);
+        localStorage.removeItem("circle"+attempt);
         attempt--;
     }
     else return alert("Error. No hay nodos existentes");
+}
+
+function arrowDelete(){
+    let arr = arrowArray[0];
+    arr.xanim = 1;
+    arr.yanim = 30;
+
+    let arrowDel = function(){
+        if(arr.ready == 1){
+            // activeButton(false);
+            let szc = arrowArray.length;
+
+            for(x = 0; x<szc; x++){
+                if(x+1 != szc){
+                    arrowArray[x] = arrowArray[x+1];
+                }
+                else arrowArray.pop();
+            }
+
+            updateAll();
+            cancelAnimationFrame(arrowDel);
+        }
+        else{
+            // activeButton(true);
+            requestAnimationFrame(arrowDel);
+        }
+        arrowDeleteAnimation(arr);
+    }
+    arrowDel();
+
 }
 
 function arrowDeleteAnimation(arr){
@@ -229,6 +226,38 @@ function arrowDeleteAnimation(arr){
     let distancia = arr.x2 - arr.x1 - 31;
     if(arr.xanim >= distancia)
         arr.ready = 1;
+}
+
+function updateAll(){
+    // if(arrowArray.length == 0)
+    let cir = circleArray[0];
+    let xaux = cir.xpos - xposx;
+    let arrsz = arrowArray.length;
+    let crsz = circleArray.length;
+
+    let mover = function(){
+        if(cir.xpos <= xaux){
+            activeButton(false);
+            cancelAnimationFrame(mover);
+        }else{
+            requestAnimationFrame(mover);
+        }
+
+        context.clearRect(0,0, windoWidth, windoHeight);
+
+        for(let x = 0; x<crsz; x++){
+            circleArray[x].xpos -= 5;
+            circleArray[x].draw();
+        }
+        if(arrsz != 0){
+           for(let x = 0; x<arrsz; x++){
+               arrowArray[x].x1-=5;
+               arrowArray[x].x2-=5;
+               arrowArray[x].draw();
+           } 
+        }
+    }
+    mover();
 }
 
 function isEmpty(){
@@ -240,20 +269,22 @@ function isEmpty(){
 }
 
 function loadQueue(){
-    context.clearRect(0,0,width,height);
-//     attempt=0;
-//     //nueva instancia
-//     circleArray=[];
-//     for(var j=0;j<7;j++){
-//         if(localStorage.getItem("circle"+j)){
-//             reInsert(code,parseInt(localStorage.getItem("circle"+j)));
-//         }
-//     }
+    context.clearRect(0,0, windoWidth, windoHeight);
+    attempt=0;
+    //nueva instancia
+    circleArray=[];
+    arrowArray=[];
+    for(var j=0;j<8;j++){
+        if(localStorage.getItem("circle"+j)){
+            document.getElementById("valor").value = parseInt(localStorage.getItem("circle"+j));
+            enqueve();
+        }
+    }
 }
 
 function arrows(circle){
     let xaux = circle.xpos, yaux = circle.ypos, saux = ((attempt-1)*xposx)+30;
-    circle.xaux = xaux;
+    // circle.xaux = xaux;
     let ar = new Arrow(saux, yaux, xaux, yaux);
     ar.draw();
     ar.ready = 0;
