@@ -114,3 +114,59 @@ var eliminar_lpp =
         <p> }</p> 
    </div>
    `;
+
+var canvas = document.getElementById("lista"); //define un nuevo objeto de diseño en el elemento canvas del documento en curso
+var context = canvas.getContext("2d");
+var width = window.innerWidth;
+var height = window.innerHeight * .4;
+
+//config canvas
+canvas.width = width;
+canvas.height = height;
+canvas.style.background = "#ff8";
+
+//constants
+var ancho = 70;
+var alto = 60;
+var attempt = 0;
+
+const yC = height / 2;
+const xCoordinate = 3 / 2;
+
+var rectArray = new Array();
+class Rectangle {
+    constructor(xpos, ypos, number) {
+        this.xpos = xpos;
+        this.ypos = ypos;
+        this.number = number;
+        this.dx = 8 - ((attempt) * (xCoordinate));
+    }
+    draw(context) {
+        context.beginPath();
+        context.textAlign = "center";
+        context.textBaseline = "middle";
+        context.strokeStyle = "green";
+        context.font = "20px Arial";
+        context.fillText(this.number, this.xpos + (ancho / 2), this.ypos + (alto / 2));
+        context.rect(this.xpos, this.ypos, ancho, alto);
+        context.rect(this.xpos + ancho, this.ypos, ancho, alto);
+        context.stroke();
+    }
+}
+
+function draw(code) {
+    let myRect = new Rectangle(10, 100, 'a');
+    myRect.draw(context)
+}
+
+function activeButton(available) { //se desactivan los botones
+    let button = document.getElementsByClassName("div-opt");
+    for (i = 0; i < button.length; i++) button[i].disabled = available;
+}
+
+function loadEvents() {
+    var code = document.getElementById("listcode").innerHTML;
+    let insert = document.getElementById("if");
+    insert.addEventListener("click", function() { draw(code); }, false);
+}
+window.addEventListener("load", loadEvents, false);

@@ -1,41 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="css/stylehorizontal.css" media="screen">
-    <!-- <script src="js/lista.js"></script> -->
-    <script src="js/cola.js"></script>
+
 </head>
+
 <body>
 
     <header class="barra">
-    <div class="img-barra">
-        <img src="img/ipn.png" alt="IPN logo">
-    </div>
-    <div class="txt-barra">
-        <h1>Instituto Politécnico Nacional</h1>
-        <h1>Escuela Superior de Cómputo</h1>
-    </div>
-    <div class="img-barra">
-        <img src="img/escom.png" alt="ESCOM logo">
-    </div>
-</header>
+        <div class="img-barra">
+            <img src="img/ipn.png" alt="IPN logo">
+        </div>
+        <div class="txt-barra">
+            <h1>Instituto Politécnico Nacional</h1>
+            <h1>Escuela Superior de Cómputo</h1>
+        </div>
+        <div class="img-barra">
+            <img src="img/escom.png" alt="ESCOM logo">
+        </div>
+    </header>
 
     <div class="nav">
         <nav class="navegacion">
-            <a href="index.html" >Regresar</a>
+            <a href="index.html">Regresar</a>
         </nav>
     </div>
 
     <h3>Lista Simplemente Enlazada</h3>
     <div class="flex-container">
-        <div class="flex-item " >
+        <div class="flex-item ">
             <ul>
                 <li>
                     Valor:
-                    <input  id="number" size="5" required>
+                    <input id="number" size="5" required>
                 </li>
                 <li>
                     <button class="button" id="ip">Insertar al principio</button>
@@ -45,7 +46,7 @@
                 </li>
                 <li>
                     <button class="button" id="ipp">Insertar en la posición:</button>
-                    <input  id="pos" size="2" required>
+                    <input id="pos" size="2" required>
                 </li>
                 <li>
                     <button class="button" id="ep">Eliminar primer elemento</button>
@@ -69,19 +70,24 @@
             <p>&nbsp;&nbsp;&nbsp;&nbsp;int tamaño;</p>
             <p>}Lista;</p>
         </div>
-        <div>
-
+        <div id="listcode">
         </div>
     </div>
+
+    <section>
+        <canvas id="lista"></canvas>
+    </section>
 
     <footer class="site-footer">
         <div class="contenedor contenedor-footer">
             <nav class="navegacion">
                 <a href="https://github.com/auroramc19/ProyectoWeb">GitHub</a>
             </nav>
-            <p  class="copyright ">Todos los Derechos Reservados 2021 &copy; </p>
+            <p class="copyright ">Todos los Derechos Reservados 2021 &copy; </p>
         </div>
     </footer>
 
 </body>
+<script src="js/lista.js"></script>
+
 </html>
