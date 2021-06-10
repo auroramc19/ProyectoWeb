@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="css/stylehorizontal.css" media="screen">
-
 </head>
 
 <body>
@@ -29,14 +27,17 @@
             <a href="index.html">Regresar</a>
         </nav>
     </div>
+    <section>
+        <canvas id="list"></canvas>
+    </section>
 
     <h3>Lista Simplemente Enlazada</h3>
     <div class="flex-container">
         <div class="flex-item ">
             <ul>
                 <li>
-                    Valor:
-                    <input id="number" size="5" required>
+                    <strong> Valor:
+                    <input id="number" style="width: 3rem;"></strong>
                 </li>
                 <li>
                     <button class="button" id="ip">Insertar al principio</button>
@@ -59,7 +60,7 @@
                 </li>
             </ul>
         </div>
-        <div class="flex-item" style="flex-basis: 60%;">
+        <div class="flex-item">
             <p>typedef struct ElementoLista { </p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;char *dato;</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;struct ElementoLista *siguiente;</p>
@@ -70,13 +71,10 @@
             <p>&nbsp;&nbsp;&nbsp;&nbsp;int tamaño;</p>
             <p>}Lista;</p>
         </div>
-        <div id="listcode">
+        <div id="code">
+
         </div>
     </div>
-
-    <section>
-        <canvas id="lista"></canvas>
-    </section>
 
     <footer class="site-footer">
         <div class="contenedor contenedor-footer">
@@ -88,6 +86,6 @@
     </footer>
 
 </body>
-<script src="js/lista.js"></script>
+<script src="js/list.js"></script>
 
 </html>

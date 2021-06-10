@@ -115,7 +115,7 @@ var eliminar_lpp =
    </div>
    `;
 
-var canvas = document.getElementById("lista"); //define un nuevo objeto de diseño en el elemento canvas del documento en curso
+var canvas = document.getElementById("list"); //define un nuevo objeto de diseño en el elemento canvas del documento en curso
 var context = canvas.getContext("2d");
 var width = window.innerWidth;
 var height = window.innerHeight * .4;
@@ -139,13 +139,13 @@ class Rectangle {
         this.xpos = xpos;
         this.ypos = ypos;
         this.number = number;
-        this.dx = 8 - ((attempt) * (xCoordinate));
+        //this.dx = 8 - ((attempt) * (xCoordinate));
     }
     draw(context) {
         context.beginPath();
         context.textAlign = "center";
         context.textBaseline = "middle";
-        context.strokeStyle = "green";
+        //context.strokeStyle = "green";
         context.font = "20px Arial";
         context.fillText(this.number, this.xpos + (ancho / 2), this.ypos + (alto / 2));
         context.rect(this.xpos, this.ypos, ancho, alto);
@@ -155,18 +155,55 @@ class Rectangle {
 }
 
 function draw(code) {
-    let myRect = new Rectangle(10, 100, 'a');
-    myRect.draw(context)
+    let myRect = new Rectangle(60, 100, 'a');
+    myRect.draw(context);
+    myRect = new Rectangle(260, 100, 'a');
+    myRect.draw(context);
+    myRect = new Rectangle(460, 100, 'a');
+    myRect.draw(context);
+    myRect = new Rectangle(660, 100, 'a');
+    myRect.draw(context);
+    myRect = new Rectangle(860, 100, 'a');
+    myRect.draw(context);
+    myRect = new Rectangle(1060, 100, 'a');
+    myRect.draw(context);
 }
 
 function activeButton(available) { //se desactivan los botones
-    let button = document.getElementsByClassName("div-opt");
+    let button = document.getElementsByClassName("button");
     for (i = 0; i < button.length; i++) button[i].disabled = available;
 }
 
+function insertEnd(code) {
+    if (attempt != 6) {
+        let number = parseInt(document.getElementById("number").value);
+        let rect = new Rectangle(60, 100, number);
+        rectArray.push(rect);
+        rect.draw(context);
+        /*let updateRect = function() {
+            if (rect.xpos == 60) {
+                activeButton(false);
+                cancelAnimationFrame(updateRect);
+                /*arrows(circle.ypos);*/
+        /*context.clearRect(180, 625, 50, 50)*/
+        /* } else {
+        activeButton(true);
+        requestAnimationFrame(updateRect);
+    }
+    update(rect);
+}
+console.log(rect.ypos);
+updateRect(); * /
+/*localStorage.setItem("circle" + attempt, number);*/
+        document.getElementById("code").innerHTML = code + insertar_lf;
+        attempt++;
+    } else return alert("La pila esta llena. No es posible agregar más nodos.")
+}
+
+
 function loadEvents() {
-    var code = document.getElementById("listcode").innerHTML;
+    var code = document.getElementById("code").innerHTML;
     let insert = document.getElementById("if");
-    insert.addEventListener("click", function() { draw(code); }, false);
+    insert.addEventListener("click", function() { insertEnd(code); }, false);
 }
 window.addEventListener("load", loadEvents, false);

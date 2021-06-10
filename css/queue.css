@@ -1,33 +1,44 @@
-*{
+* {
     margin: 0%;
     padding: 0%;
 }
-body{
+
+body {
     margin: 0;
-    font-size: 20px;
+    font-size: 18px;
     font-family: sans-serif;
 }
 
-h2{
+h2 {
     font-size: 2.5rem;
     text-align: center;
     color: #1564bf;
 }
-h1:first-child{
+
+h1:first-child {
     font-size: 1.7rem;
 }
-h1{
+
+h1 {
     font-size: 1.5rem;
     text-align: center;
     margin-bottom: 0;
     margin-top: 0;
     color: white;
-
 }
-img{
+
+.h3-cola {
+    font-size: 2rem;
+    text-align: center;
+    color: rgb(26, 161, 55);
+    padding: 1rem;
+}
+
+img {
     max-width: 80%;
     border-style: none;
 }
+
 
 /* @font-face {
     font-family: 'consola';
@@ -39,42 +50,49 @@ img{
     src: url(fuentes/Oswald-Bold.ttf);
 } */
 
-img{
+img {
     max-width: 80%;
     border-style: none;
 }
 
 
 /* HEADER */
+
 .barra {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #003c8f;
 }
-.img-barra{
+
+.img-barra {
     flex-basis: 8%;
     padding: 5px;
 }
-.img-barra:last-child{
+
+.img-barra:last-child {
     flex-basis: 13%;
 }
-.txt-barra{
+
+.txt-barra {
     padding: 0 6rem;
     letter-spacing: 0.06em;
 }
+
 .contenedor {
     width: 80%;
     max-width: 120rem;
     margin: 0 auto;
 }
-.credits{
+
+.credits {
     font-size: 17px;
     text-align: left;
     color: black;
     padding: 1rem;
 }
-.cont{
+
+.cont {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -82,16 +100,15 @@ img{
     flex-basis: 40%;
 }
 
-
-
-
-body{
+body {
     background-color: rgb(255, 255, 255);
 }
-.resaltar{
+
+.resaltar {
     background-color: #ff0;
 }
-#bloque{
+
+#bloque {
     display: flex;
     /*          row */
     flex-flow: column nowrap;
@@ -99,7 +116,8 @@ body{
     align-items: center;
     background-color: #f7f5f5;
 }
-#diagrama{
+
+#diagrama {
     /* display: flex;
     flex-flow: row wrap;
     justify-content: flex-start; */
@@ -107,6 +125,8 @@ body{
     height: 100%;
     /* background-color: #ff8; */
 }
+
+
 /* #diagrama-cv{
     width: 400px;
     height: 400px;
@@ -117,69 +137,137 @@ body{
     background-color: #ff8;
 } */
 
+
 /* Codigo c */
-#code{
+
+#code {
     /* background-color: blue; */
     /* margin-top: 30px; */
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
 }
+
 #code div {
     margin: 10px;
     /* margin-right: 30px; */
 }
-#code div p{
+
+#code div p {
     font-family: 'consola', monospace;
     margin: 2px;
 }
 
+
 /* Opciones */
-#opt{
+
+#opt {
     margin: 20px;
 }
+
 #opt ul {
-    list-style: none;  
+    list-style: none;
     margin: 0;
     padding: 0;
 }
-#opt ul li{
+
+#opt ul li {
     display: inline-block;
 }
-#opt ul li button:hover{
-    background-color: red;
-}
-#opt ul li button:focus{
-    background-color: rgb(0, 201, 134);
-}
-p#mensaje{
+
+p#mensaje {
     font-family: 'Oswald', sans-serif;
 }
 
+
 /* FOOTER */
-.site-footer {
+
+.site-footer,
+.nav {
     background-color: #333333;
     margin: 0;
     font-size: 17px;
 }
-.contenedor-footer {
+
+.contenedor-footer,
+.nav {
     display: flex;
     justify-content: space-between;
     padding: 1rem 0;
 }
+
 .site-footer nav {
     display: block;
 }
+
+
+/* NAV */
+
 .navegacion a {
     color: white;
     text-decoration: none;
     display: inline-block;
     margin-right: 2rem;
 }
-.navegacion a:hover{
+
+.navegacion a:hover {
     color: #00b686;
 }
+
+.nav {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .copyright {
     margin: 0;
     color: white;
+}
+
+.grid {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    align-content: space-around;
+}
+
+.flex-item {
+    margin: 10px;
+    padding: 1rem;
+}
+
+.flex-item p {
+    font-weight: bold;
+}
+
+
+/*Botones */
+
+.button {
+    display: inline-block;
+    padding: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: black;
+    background-color: rgb(86, 207, 75);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 9px rgb(88, 184, 88);
+}
+
+.button:hover {
+    background-color: rgb(121, 255, 87);
+}
+
+.button:active {
+    background-color: green;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
 }

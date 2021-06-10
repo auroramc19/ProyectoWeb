@@ -1,12 +1,152 @@
-* {
-    margin: 0%;
-    padding: 0%;
+body {
+    margin: 0;
+    font-size: 18px;
+    font-family: sans-serif;
+}
+
+h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    color: #1564bf;
+}
+
+h1:first-child {
+    font-size: 1.7rem;
+}
+
+h1 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 0;
+    margin-top: 0;
+    color: white;
+}
+
+h3 {
+    font-size: 2rem;
+    text-align: center;
+    color: hotpink;
+}
+
+img {
+    max-width: 80%;
+    border-style: none;
 }
 
 .body-pila {
     margin: 0;
-    font-size: 20px;
+    font-size: 18px;
     font-family: sans-serif;
+}
+
+
+/* HEADER */
+
+.barra {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #003c8f;
+}
+
+.img-barra {
+    flex-basis: 8%;
+    padding: 5px;
+}
+
+.img-barra:last-child {
+    flex-basis: 13%;
+}
+
+.txt-barra {
+    padding: 0 6rem;
+    letter-spacing: 0.06em;
+}
+
+.contenedor {
+    width: 95%;
+    max-width: 120rem;
+    margin: 0 auto;
+}
+
+.credits {
+    font-size: 17px;
+    text-align: left;
+    color: black;
+    padding: 1rem;
+}
+
+.cont {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: stretch;
+    flex-basis: 40%;
+}
+
+
+/* FOOTER */
+
+.site-footer,
+.nav {
+    background-color: #333333;
+    margin: 0;
+    font-size: 17px;
+}
+
+.contenedor-footer,
+.nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+}
+
+.site-footer nav {
+    display: block;
+}
+
+
+/* NAV */
+
+.navegacion a {
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 2rem;
+}
+
+.navegacion a:hover {
+    color: #00b686;
+}
+
+.nav {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.copyright {
+    margin: 0;
+    color: white;
+}
+
+.grid {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    align-content: space-around;
+}
+
+.flex-item {
+    margin: 10px;
+    padding: 1rem;
+}
+
+.flex-item p {
+    font-weight: bold;
 }
 
 
@@ -44,4 +184,32 @@ main {
 
 .code-cont {
     padding: 2rem;
+}
+
+
+/*Botones */
+
+.button {
+    display: inline-block;
+    padding: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: black;
+    background-color: rgb(255, 174, 0);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 9px rgb(255, 208, 121);
+}
+
+.button:hover {
+    background-color: orange
+}
+
+.button:active {
+    background-color: orangered;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
 }

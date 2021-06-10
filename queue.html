@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,6 +8,7 @@
     <script src="js/queue.js"></script>
     <!-- <script src="js/referencia.js"></script> -->
 </head>
+
 <body>
     <header class="barra">
         <div class="img-barra">
@@ -20,11 +22,17 @@
             <img src="img/escom.png" alt="ESCOM logo">
         </div>
     </header>
+    <div class="nav">
+        <nav class="navegacion">
+            <a href="index.html">Regresar</a>
+        </nav>
+    </div>
 
     <section id="bloque">
         <div id="diagrama">
             <canvas id="diagrama-cv"></canvas>
         </div>
+        <h3 class="h3-cola" style="padding: 1rem;">Cola</h3>
         <div id="code">
             <div>
                 <p>Struct nodo{</p>
@@ -36,15 +44,17 @@
                 <p> struct nodo *fondo;</p>
                 <p> typedef struct nodo NODO; </p>
             </div>
-        </div> 
+        </div>
     </section>
     <div id="opt">
         <ul>
-            <li><button class="div-opt">enqueve</button></li>
-            <li><button class="div-opt">dequeve</button></li>
-            <li><button class="div-opt">isEmpty</button></li>
-            <li><button class="div-opt">Cargar cola guardada</button></li>
-            <li><p id="mensaje">Ingresa Un Numero: </p></li>
+            <li><button class="div-opt button">enqueve</button></li>
+            <li><button class="div-opt button">dequeve</button></li>
+            <li><button class="div-opt button">isEmpty</button></li>
+            <li><button class="div-opt button">Cargar cola guardada</button></li>
+            <li>
+                <p id="mensaje">Ingresa Un Numero: </p>
+            </li>
             <li><input type="number" min="0" max="99999" value="1" id="valor"></li>
         </ul>
     </div>
@@ -54,9 +64,10 @@
             <nav class="navegacion">
                 <a href="https://github.com/auroramc19/ProyectoWeb">GitHub</a>
             </nav>
-            <p  class="copyright ">Todos los Derechos Reservados 2021 &copy; </p>
+            <p class="copyright ">Todos los Derechos Reservados 2021 &copy; </p>
         </div>
     </footer>
 
 </body>
+
 </html>
