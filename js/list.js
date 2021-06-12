@@ -197,6 +197,7 @@ class Ground {
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
+        this.ready = 1;
         this.xanim = 0;
         this.yanim = 0;
     }
@@ -311,7 +312,7 @@ function deleteFirst(code) {
 
 function deleteEnd(code) {
     document.getElementById("code").innerHTML = code + eliminar_lpp_end;
-
+    let ar = arrowArray.length;
     if (attempt != 0) {
         rect = rectArray[attempt - 1];
         let discardRect = function() {
@@ -319,7 +320,16 @@ function deleteEnd(code) {
                 activeButton(true);
                 requestAnimationFrame(discardRect);
             } else {
-                activeButton(false);
+                let r = rectArray.length;
+                for (let x = 0; x < r; x++) {
+                    if (x + 1 != r) {
+                        rectArray[x] = rectArray[x + 1];
+                    } else rectArray.pop();
+                }
+                if (ar == 0)
+                    activeButton(false);
+                else
+                    arrowDelete();
                 cancelAnimationFrame(discardRect);
             }
             invers(rect);
@@ -350,7 +360,7 @@ function ground(rect) {
     let g = new Ground(saux, yaux, xaux, yaux);
     g.draw();
     g.ready = 0;
-    arrowArray.push(g)
+    //arrowArray.push(g)
 }
 
 function deleteGround(rect) {
@@ -367,14 +377,37 @@ function arrowDelete() {
     let arrowDel = function() {
         if (arr.ready == 1) {
             // activeButton(false);
+
+            arrowArray.shift();
+            console.log(arrowArray);
+            updateAll();
+            cancelAnimationFrame(arrowDel);
+        } else {
+            // activeButton(true);
+            requestAnimationFrame(arrowDel);
+        }
+        arrowDeleteAnimation(arr);
+
+    }
+    arrowDel();
+}
+
+function lastArrowDelete() {
+    let i = arrowArray.length - 1;
+    arr.xanim = 1;
+    arr.yanim = 30;
+    let arrowDel = function() {
+        if (arr.ready == 1) {
+            // activeButton(false);
             let szc = arrowArray.length;
 
-            for (let x = 0; x < szc; x++) {
+            /*for (let x = 0; x < szc; x++) {
                 if (x + 1 != szc) {
                     arrowArray[x] = arrowArray[x + 1];
                 } else arrowArray.pop();
-            }
-
+            }*/
+            arrowArray.splice(i, 1);
+            console.log(arrowArray);
             updateAll();
             cancelAnimationFrame(arrowDel);
         } else {
@@ -418,13 +451,13 @@ function updateAll() {
             rectArray[x].alto = 60;
             rectArray[x].ancho = 70;
             rectArray[x].draw();
+
         }
         if (arrsz != 0) {
             for (let x = 0; x < arrsz; x++) {
                 arrowArray[x].x1 -= 10;
                 arrowArray[x].x2 -= 10;
                 arrowArray[x].draw();
-
             }
         }
     }
