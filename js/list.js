@@ -183,48 +183,54 @@ function insertBeginning(code) { // INSERTA UN NODO AL PRINCIPIO DE LA LISTA
         if (attempt == 0)
             groundDelete(rect);
         //localStorage.setItem("qcircle" + attempt, number);
-    } else return alert("La lista esta llena y no es posible agregar más nodos.")
-}
-
-function toRight() { //desplaza toda la lista hacia la derecha
-    let rect = rectArray[rectArray.length - 1];
-    let xaux = xposx + 200;
-    let recsz = rectArray.length;
-    let arrsz = arrowArray.length;
-    console.log(rectArray);
-
-    let mover = function() {
-        if (rectArray[1].xpos >= xaux) {
-            activeButton(false);
-            cancelAnimationFrame(mover);
-            groundRelocate(rect);
-            return 0;
-        } else {
-            requestAnimationFrame(mover);
-        }
-
-        context.clearRect(0, 0, width, height);
-
-        for (let x = 1; x < recsz; x++) {
-            rectArray[x].xpos += 20;
-            rectArray[x].alto = 60;
-            rectArray[x].ancho = 70;
-            rectArray[x].draw();
-        }
-
-        if (arrsz != 0) {
-            for (let x = 0; x < arrsz; x++) {
-                arrowArray[x].x1 += 20;
-                arrowArray[x].x2 += 20;
-                arrowArray[x].draw();
-            }
-        }
-    }
-    mover();
+    } else return alert("La lista esta llena y no es posible agregar más nodos.");
 }
 
 function insert(code) { // INSERTA UN NODO EN X PARTE DE LA LISTA
+    if (attempt != 6) {
+        activeButton(true);
+        if (attempt == 0)
+            document.getElementById("code").innerHTML = code + insertar_lvacia;
+        else
+            document.getElementById("code").innerHTML = code + insertar_lpp;
 
+        let number = parseInt(document.getElementById("number").value);
+
+        let position = parseInt(document.getElementById("pos").value) - 1;
+        let rect_aux = rectArray[position];
+        let xaux = rect_aux.xpos; // coordenada x del rect -> 60
+        let rect = new Rectangle(xaux, yposy, number);
+        console.log(position);
+        console.log(rect_aux);
+        toRightP(position);
+
+        arrowsB(rect);
+
+        attempt++; //aumenta número de nodos
+
+        console.log(rectArray);
+        rectArray.splice(position, 0, rect);
+        rect.draw(context); //Dibujar rectangulo
+        console.log(rectArray);
+
+        let updateRect = function() { //función que hace crecer el rect
+            if (rect.ancho == 70 && rect.alto == 60) {
+                rect.show = 1; //una vez cargado el rect, muestra el numero
+                activeButton(false);
+                cancelAnimationFrame(updateRect);
+            } else requestAnimationFrame(updateRect);
+            update(rect); //actualiza el tamaño del rect
+
+            if (attempt == 1) {
+                ground(rect); //se dibuja la tierra
+            }
+
+        }
+        updateRect();
+        if (attempt == 0)
+            groundDelete(rect);
+        //localStorage.setItem("qcircle" + attempt, number);
+    } else return alert("La lista esta llena y no es posible agregar más nodos.")
 }
 
 function deleteFirst(code) { //ELIMINA UN NODO AL PRINCIPIO DE LA LISTA
@@ -465,6 +471,80 @@ function groundRelocate() { //reubica la tierra al último nodo de la lista
     mover();
 }
 
+function toRight() { //desplaza toda la lista hacia la derecha
+    let rect = rectArray[rectArray.length - 1];
+    let xaux = xposx + 200;
+    let recsz = rectArray.length;
+    let arrsz = arrowArray.length;
+    console.log(rectArray);
+
+    let mover = function() {
+        if (rectArray[1].xpos >= xaux) {
+            activeButton(false);
+            cancelAnimationFrame(mover);
+            groundRelocate(rect);
+            return 0;
+        } else {
+            requestAnimationFrame(mover);
+        }
+
+        context.clearRect(0, 0, width, height);
+
+        for (let x = 1; x < recsz; x++) {
+            rectArray[x].xpos += 20;
+            rectArray[x].alto = 60;
+            rectArray[x].ancho = 70;
+            rectArray[x].draw();
+        }
+
+        if (arrsz != 0) {
+            for (let x = 0; x < arrsz; x++) {
+                arrowArray[x].x1 += 20;
+                arrowArray[x].x2 += 20;
+                arrowArray[x].draw();
+            }
+        }
+    }
+    mover();
+}
+
+function toRightP(position) { //desplaza toda la lista hacia la derecha
+    let rect = rectArray[position];
+    let xaux = rect.xpos + 200;
+    let recsz = rectArray.length;
+    let arrsz = arrowArray.length;
+    console.log(rect);
+
+    let mover = function() {
+        if (rect.xpos >= xaux) {
+            activeButton(false);
+            cancelAnimationFrame(mover);
+            //groundRelocate(rect);
+            //return 0;
+        } else {
+            requestAnimationFrame(mover);
+        }
+
+        context.clearRect(rect.xpos - 1, 0, width, height);
+
+        for (let x = position; x < recsz; x++) {
+            rectArray[x].xpos += 20;
+            rectArray[x].alto = 60;
+            rectArray[x].ancho = 70;
+            rectArray[x].draw();
+        }
+
+        if (arrsz != 0) {
+            for (let x = position; x < arrsz; x++) {
+                arrowArray[x].x1 += 20;
+                arrowArray[x].x2 += 20;
+                arrowArray[x].draw();
+            }
+        }
+    }
+    mover();
+}
+
 function activeButton(available) { //activación/desactivación de botones
     let button = document.getElementsByClassName("button");
     for (i = 0; i < button.length; i++) button[i].disabled = available;
@@ -476,10 +556,12 @@ function loadEvents() {
     var code = document.getElementById("code").innerHTML;
     let insert_f = document.getElementById("if");
     let insert_b = document.getElementById("ip");
+    let insert_l = document.getElementById("ipp");
     let delete_end = document.getElementById("eu");
     let delete_b = document.getElementById("ep");
     insert_f.addEventListener("click", function() { insertEnd(code); }, false);
     insert_b.addEventListener("click", function() { insertBeginning(code); }, false);
+    insert_l.addEventListener("click", function() { insert(code); }, false);
     delete_end.addEventListener("click", function() { deleteEnd(code); }, false);
     delete_b.addEventListener("click", function() { deleteFirst(code); }, false);
 }
