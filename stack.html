@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -7,7 +8,8 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='css/stack.css'>
 </head>
-<body>
+
+<body class="body-pila">
     <header class="barra">
         <div class="img-barra">
             <img src="img/ipn.png" alt="IPN logo">
@@ -20,29 +22,45 @@
             <img src="img/escom.png" alt="ESCOM logo">
         </div>
     </header>
-   <main>
-    <section>
-    <canvas id="diagrama-cv"></canvas>
-    </section>
-    <section id="interfaz">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam quae perspiciatis autem dolorem perferendis cupiditate enim tenetur exercitationem, magnam hic quod nesciunt rem doloribus fugiat libero dolorum odio veritatis ipsum!</p>
-        <input value="10" id="number" size="5" required>
-        <button class="div-opt" id="push">Insertar (push).</button>
-        <button class="div-opt" id="pop">Eliminar (pop).</button>
-        <button class="div-opt" id="empty">¿Esta vacia? (isEmpty?).</button>
-        <button class="div-opt" id="loadStack">Cargar pila almacenada.</button>
-        <div id="code">
-            <div>
-                <p>struct nodo{ </p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;int numero;</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;nodo *next;</p>
-                <p>}</p>
+
+    <div class="nav">
+        <nav class="navegacion">
+            <a href="index.html">Regresar</a>
+        </nav>
+    </div>
+
+    <main>
+        <section>
+            <canvas id="diagrama-cv"></canvas>
+        </section>
+        <section id="interfaz">
+            <h3 class="h3-pila">Pila</h3>
+            <input value="10" id="number" size="5" required>
+            <button class="div-opt button" id="push">Insertar (push).</button>
+            <button class="div-opt button" id="pop">Eliminar (pop).</button>
+            <button class="div-opt button" id="empty">¿Esta vacia? (isEmpty?).</button>
+            <button class="div-opt button" id="loadStack">Cargar pila almacenada.</button>
+            <div id="code" class="code-cont">
+                <div>
+                    <p>struct nodo{ </p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;int numero;</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;nodo *next;</p>
+                    <p>}</p>
+                </div>
             </div>
+            <div id="auxcode">
+            </div>
+        </section>
+    </main>
+    <footer class="site-footer">
+        <div class="contenedor contenedor-footer">
+            <nav class="navegacion">
+                <a href="https://github.com/auroramc19/ProyectoWeb">GitHub</a>
+            </nav>
+            <p class="copyright ">Todos los Derechos Reservados 2021 &copy; </p>
         </div>
-        <div id="auxcode">
-        </div>
-    </section>
-</main>
+    </footer>
 </body>
 <script src="js/stack.js"></script>
+
 </html>

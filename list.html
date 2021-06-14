@@ -1,33 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="css/stylehorizontal.css" media="screen">
-    <!-- <script src="js/lista.js"></script> -->
-    <script src="js/cola.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
 </head>
+
 <body>
-    <section id="bloque">
-       <div id="diagrama">
-           <canvas id="cv-diagrama"></canvas>
-       </div>
-       <div id="code">
-           <div>
-               <p>Struct queue{ </p>
-               <p>&nbsp;&nbsp;&nbsp;&nbsp;int val;</p>
-               <p>&nbsp;&nbsp;&nbsp;&nbsp;queue next;</p>
-               <p>}</p>
-           </div>
-       </div> 
-    </section>
-    <div id="opt">
-        <ul>
-            <li><button class="div-opt">Push</button></li>
-            <li><button class="div-opt">Pop</button></li>
-            <li><button class="div-opt">IsEmpty</button></li>
-        </ul>
+
+    <header class="barra">
+        <div class="img-barra">
+            <img src="img/ipn.png" alt="IPN logo">
+        </div>
+        <div class="txt-barra">
+            <h1>Instituto Politécnico Nacional</h1>
+            <h1>Escuela Superior de Cómputo</h1>
+        </div>
+        <div class="img-barra">
+            <img src="img/escom.png" alt="ESCOM logo">
+        </div>
+    </header>
+
+    <div class="nav">
+        <nav class="navegacion">
+            <a href="index.html">Regresar</a>
+        </nav>
     </div>
-    
+    <section>
+        <canvas id="list"></canvas>
+    </section>
+
+    <h3>Lista Simplemente Enlazada</h3>
+    <div class="flex-container">
+        <div class="flex-item ">
+            <ul>
+                <li>
+                    <strong> Valor:
+                    <input id="number" style="width: 3rem;"></strong>
+                </li>
+                <li>
+                    <button class="div-opt button" id="ip">Insertar al principio</button>
+                </li>
+                <li>
+                    <button class="div-opt button" id="if">Insertar al final</button>
+                </li>
+                <li>
+                    <button class="div-opt button" id="ipp">Insertar en la posición:</button>
+                    <input type="number" id="pos" min="1" max="6">
+                </li>
+                <li>
+                    <button class="div-opt button" id="ep">Eliminar primer elemento</button>
+                </li>
+                <li>
+                    <button class="div-opt button" id="eu">Eliminar último elemento</button>
+                </li>
+                <li>
+                    <button class="div-opt button" id="ev">Eliminar valor</button>
+                </li>
+            </ul>
+        </div>
+        <div class="flex-item">
+            <p>typedef struct ElementoLista { </p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;char *dato;</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;struct ElementoLista *siguiente;</p>
+            <p>}Elemento;</p>
+            <p>typedef struct ListaIdentificar { </p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;Elemento *inicio;</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;Elemento *fin;</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;int tamaño;</p>
+            <p>}Lista;</p>
+        </div>
+        <div id="code">
+
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="contenedor contenedor-footer">
+            <nav class="navegacion">
+                <a href="https://github.com/auroramc19/ProyectoWeb">GitHub</a>
+            </nav>
+            <p class="copyright ">Todos los Derechos Reservados 2021 &copy; </p>
+        </div>
+    </footer>
+
 </body>
+<script src="js/list.js"></script>
+
 </html>

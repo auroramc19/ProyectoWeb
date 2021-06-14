@@ -156,10 +156,8 @@ function insertBeginning(code) { // INSERTA UN NODO AL PRINCIPIO DE LA LISTA
         let xaux = xposx; // coordenada x del rect -> 60
         let rect = new Rectangle(xaux, yposy, number);
         rect.draw(context); //Dibujar rectangulo
-        if (attempt - 1 > 0)
-            arrowsB(rect);
+        
         attempt++; //aumenta número de nodos
-
 
         rectArray.unshift(rect);
 
@@ -171,7 +169,8 @@ function insertBeginning(code) { // INSERTA UN NODO AL PRINCIPIO DE LA LISTA
                 rect.show = 1; //una vez cargado el rect, muestra el numero
                 activeButton(false);
                 cancelAnimationFrame(updateRect);
-                if(attempt>1)   arrowsB(rect);
+                if (attempt > 1)
+                    arrowsB(rect);
             } else requestAnimationFrame(updateRect);
             update(rect); //actualiza el tamaño del rect
 
@@ -469,14 +468,14 @@ function toRight() { //desplaza toda la lista hacia la derecha
     let arrsz = arrowArray.length;
     console.log(rectArray);
 
-    let moverR = function() {
+    let mover = function() {
         if (rectArray[1].xpos >= xaux) {
             activeButton(false);
-            cancelAnimationFrame(moverR);
+            cancelAnimationFrame(mover);
             groundRelocate(rect);
             return 0;
         } else {
-            requestAnimationFrame(moverR);
+            requestAnimationFrame(mover);
         }
 
         context.clearRect(0, 0, width, height);
@@ -496,10 +495,10 @@ function toRight() { //desplaza toda la lista hacia la derecha
             }
         }
     }
-    moverR();
+    mover();
 }
 
-function toRightP(position,rectAux) { //desplaza toda la lista hacia la derecha
+function toRightP(position) { //desplaza toda la lista hacia la derecha
     let rect = rectArray[position];
     let xaux = rect.xpos + 200;
     let recsz = rectArray.length;
