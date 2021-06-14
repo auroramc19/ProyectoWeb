@@ -2,7 +2,7 @@ var canvas = document.getElementById("list"); //define un nuevo objeto de diseñ
 var context = canvas.getContext("2d");
 var width = window.innerWidth;
 var height = window.innerHeight * .4;
-
+var flag=true;
 //config canvas
 canvas.width = width;
 canvas.height = height;
@@ -106,6 +106,7 @@ class Ground {
 }
 
 function insertEnd(code) { //INSERTA UN NODO AL FINAL DE LA LISTA
+    deleteLocalS();
     if (attempt != 6) {
         activeButton(true);
         if (attempt == 0)
@@ -161,6 +162,7 @@ function insertEnd(code) { //INSERTA UN NODO AL FINAL DE LA LISTA
 }
 
 function insertBeginning(code) { // INSERTA UN NODO AL PRINCIPIO DE LA LISTA
+    deleteLocalS();
     if (attempt != 6) {
         activeButton(true);
         if (attempt == 0)
@@ -216,6 +218,7 @@ function insertBeginning(code) { // INSERTA UN NODO AL PRINCIPIO DE LA LISTA
 }
 
 function insert(code) { // INSERTA UN NODO EN X PARTE DE LA LISTA
+    deleteLocalS();
     let rezs = rectArray.length;
     let position = parseInt(document.getElementById("pos").value) - 1;
     if (attempt != 6) {
@@ -761,6 +764,7 @@ function loadList() {
     context.clearRect(0, 0, width, height);
     attempt = 0;
     //nueva instancia
+    flag=false;
     rectArray = [];
     arrowArray = [];
     for (let j = 1; j < 7; j++) {
@@ -769,6 +773,10 @@ function loadList() {
             insertEnd();
         } else break;
     }
+}
+
+function deleteLocalS(){
+    if(attempt==0 && flag)  for(let i = 0; i < 7; i++)  localStorage.removeItem("qrect" + i);
 }
 
 function activeButton(available) { //activación/desactivación de botones
