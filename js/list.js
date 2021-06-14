@@ -156,10 +156,8 @@ function insertBeginning(code) { // INSERTA UN NODO AL PRINCIPIO DE LA LISTA
         let xaux = xposx; // coordenada x del rect -> 60
         let rect = new Rectangle(xaux, yposy, number);
         rect.draw(context); //Dibujar rectangulo
-        if (attempt - 1 > 0)
-            arrowsB(rect);
-        attempt++; //aumenta número de nodos
 
+        attempt++; //aumenta número de nodos
 
         rectArray.unshift(rect);
 
@@ -171,6 +169,8 @@ function insertBeginning(code) { // INSERTA UN NODO AL PRINCIPIO DE LA LISTA
                 rect.show = 1; //una vez cargado el rect, muestra el numero
                 activeButton(false);
                 cancelAnimationFrame(updateRect);
+                if (attempt > 1)
+                    arrowsB(rect);
             } else requestAnimationFrame(updateRect);
             update(rect); //actualiza el tamaño del rect
 
@@ -198,12 +198,13 @@ function insert(code) { // INSERTA UN NODO EN X PARTE DE LA LISTA
 
         let position = parseInt(document.getElementById("pos").value) - 1;
         let rect_aux = rectArray[position];
-        let xaux = rect_aux.xpos; // coordenada x del rect -> 60
-        let rect = new Rectangle(xaux, yposy, number);
+        let xaux = rect_aux.xpos; // coordenada x del rect 
+
         console.log(position);
         console.log(rect_aux);
         toRightP(position);
 
+        let rect = new Rectangle(xaux, yposy, number);
         arrowsB(rect);
 
         attempt++; //aumenta número de nodos
@@ -515,14 +516,14 @@ function toRightP(position) { //desplaza toda la lista hacia la derecha
     let arrsz = arrowArray.length;
     console.log(rect);
 
-    let mover = function() {
+    let moverR = function() {
         if (rect.xpos >= xaux) {
             activeButton(false);
-            cancelAnimationFrame(mover);
+            cancelAnimationFrame(moverR);
             //groundRelocate(rect);
             //return 0;
         } else {
-            requestAnimationFrame(mover);
+            requestAnimationFrame(moverR);
         }
 
         context.clearRect(rect.xpos - 1, 0, width, height);
@@ -542,11 +543,11 @@ function toRightP(position) { //desplaza toda la lista hacia la derecha
             }
         }
     }
-    mover();
+    moverR();
 }
 
 function activeButton(available) { //activación/desactivación de botones
-    let button = document.getElementsByClassName("button");
+    let button = document.getElementsByClassName("div-opt");
     for (i = 0; i < button.length; i++) button[i].disabled = available;
 }
 
