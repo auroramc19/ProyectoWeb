@@ -140,7 +140,11 @@ function insertEnd(code) { //INSERTA UN NODO AL FINAL DE LA LISTA
         updateRect();
         if (attempt == 0)
             groundDelete(rect);
-        //localStorage.setItem("qcircle" + attempt, number);
+
+
+        localStorage.setItem("qrect" + attempt, number);
+
+
     } else return alert("La lista esta llena y no es posible agregar más nodos.")
 }
 
@@ -156,7 +160,7 @@ function insertBeginning(code) { // INSERTA UN NODO AL PRINCIPIO DE LA LISTA
         let xaux = xposx; // coordenada x del rect -> 60
         let rect = new Rectangle(xaux, yposy, number);
         rect.draw(context); //Dibujar rectangulo
-        
+
         attempt++; //aumenta número de nodos
 
         rectArray.unshift(rect);
@@ -164,30 +168,46 @@ function insertBeginning(code) { // INSERTA UN NODO AL PRINCIPIO DE LA LISTA
         if (attempt > 1) {
             toRight();
         }
+        var a = false;
         let updateRect = function() { //función que hace crecer el rect
             if (rect.ancho == 70 && rect.alto == 60) {
                 rect.show = 1; //una vez cargado el rect, muestra el numero
-                activeButton(false);
                 cancelAnimationFrame(updateRect);
-                if (attempt > 1)
-                    arrowsB(rect);
+                activeButton(false);
+                a = true;
             } else requestAnimationFrame(updateRect);
             update(rect); //actualiza el tamaño del rect
-
+            if (a && attempt > 1) {
+                arrowsB(rect);
+            }
             if (attempt == 1) {
                 ground(rect); //se dibuja la tierra
             }
-
         }
         updateRect();
         if (attempt == 0)
             groundDelete(rect);
-        //localStorage.setItem("qcircle" + attempt, number);
+
+        // if(localStorage.getItem("qrect"+ 1)){
+        //     for (let x = 1; x < 6; x++){
+        //         let auxlocal = localStorage.getItem("qrect"+ x);     
+        //         localStorage.setItem("qrect" + x+1, auxlocal);   
+        //     }
+        // }
+        //else
+        localStorage.setItem("qrect" + attempt, number);
     } else return alert("La lista esta llena y no es posible agregar más nodos.");
 }
 
 function insert(code) { // INSERTA UN NODO EN X PARTE DE LA LISTA
+    let arzs = arrowArray.length;
+    let rezs = rectArray.length;
+    let position = parseInt(document.getElementById("pos").value) - 1;
     if (attempt != 6) {
+        if (rezs == 0 || indice > rezs || indice < 0) {
+            alert("Error: posición inexistente");
+            return 0;
+        }
         activeButton(true);
         if (attempt == 0)
             document.getElementById("code").innerHTML = code + insertar_lvacia;
@@ -196,15 +216,13 @@ function insert(code) { // INSERTA UN NODO EN X PARTE DE LA LISTA
 
         let number = parseInt(document.getElementById("number").value);
 
-        let position = parseInt(document.getElementById("pos").value) - 1;
         let rect_aux = rectArray[position];
         let xaux = rect_aux.xpos; // coordenada x del rect -> 60
         let rect = new Rectangle(xaux, yposy, number);
         console.log(position);
         console.log(rect_aux);
-        toRightP(position,rect);
+        toRightP(position, rect);
 
-        
         //localStorage.setItem("qcircle" + attempt, number);
     } else return alert("La lista esta llena y no es posible agregar más nodos.")
 }
@@ -230,13 +248,14 @@ function deleteFirst(code) { //ELIMINA UN NODO AL PRINCIPIO DE LA LISTA
                 else
                     arrowDelete();
 
+                if (attempt == 0)
+                    context.clearRect(0, 0, width, height);
                 cancelAnimationFrame(discardRect);
             }
             invers(rect);
         }
         discardRect();
-        if (attempt == 1)
-            groundDelete(rect);
+
         attempt--;
     } else return alert("Error: No hay nodos existentes");
 }
@@ -266,6 +285,65 @@ function deleteEnd(code) { //ELIMINA EL ÚLTIMO NODO DE LA LISTA
     } else return alert("Error. No hay nodos existentes");
 }
 
+function deletePosition(code) {
+    document.getElementById("code").innerHTML = code + eliminar_lpp_end;
+    let arzs = arrowArray.length;
+    let rezs = rectArray.length;
+
+    var code = document.getElementById("code").innerHTML;
+    let indice = parseInt(document.getElementById("epos").value) - 1;
+
+    if (attempt != 0) {
+        if (rezs == 0 || indice > (rezs - 1) || indice < 0) {
+            alert("Error: posición inexistente");
+            return 0;
+        }
+
+        rect = rectArray[indice];
+
+        if (rectArray.length == (indice + 1))
+            deleteEnd(code);
+        else {
+            let discardRect = function() {
+                if (rect.ypos > -62) {
+                    activeButton(true);
+                    requestAnimationFrame(discardRect);
+                } else {
+                    rectArray.splice(indice, 1);
+                    if (arzs == 0)
+                        activeButton(false);
+                    else
+                        arrowDeleteXPos(indice);
+
+                    cancelAnimationFrame(discardRect);
+                    attempt--;
+                }
+                invers(rect);
+            }
+            discardRect();
+        }
+    } else return alert("Error. No hay nodos existentes");
+}
+
+function deleteValue(code) {
+    let indice = parseInt(document.getElementById("epos").value) - 1;
+    let value = parseInt(document.getElementById("evl").value);
+    let arsz = rectArray.length;
+    //var code = document.getElementById("code").innerHTML;
+
+    if (attempt != 0) {
+        for (let x = 0; x < arsz; x++) {
+            if (rectArray[x].number == value) {
+                document.getElementById("epos").value = "" + (x + 1);
+                deletePosition(code);
+                return 0;
+            }
+            if (x == arsz - 1) {
+                alert("No existe ese valor");
+            }
+        }
+    } else return alert("Error. No hay nodos existentes");
+}
 // FUNCIONES AUXILIARES
 
 function update(rect) { // actualiza el tamaño de un rect nuevo
@@ -294,19 +372,18 @@ function arrows(rect) { //dibuja una flecha en las coordenadas planteadas
     arrowArray.push(ar); //se agrega la flecha creada a un arreglo
 }
 //---------------------------------------------------------------------------------------------
-function arrowsBD(rect) { //dibuja una flecha en las coordenadas planteadas
+function arrowsBD(rect, p) { //dibuja una flecha en las coordenadas planteadas
     console.log(rect.xpos, rect.ypos);
-    let saux = 105+rect.xpos;
-    let xaux = saux+95,
+    let saux = 105 + rect.xpos;
+    let xaux = saux + 95,
         yaux = rect.ypos + 30;
-       
+
     // circle.xaux = xaux;
     let ar = new Arrow(saux, yaux, xaux, yaux);
     ar.draw();
     ar.ready = 0;
-    arrowArray.unshift(ar); //se agrega la flecha creada a un arreglo
+    arrowArray.splice(p, 0, ar); //se agrega la flecha creada a un arreglo
 }
-
 
 function arrowsB(rect) { //dibuja una flecha en las coordenadas planteadas
     console.log(rect.xpos, rect.ypos);
@@ -411,34 +488,38 @@ function updateAll() { //desplaza toda la lista hacia la izquierda
     let xaux = xposx;
     let arrsz = arrowArray.length;
     let recsz = rectArray.length;
-
+    let xd = true;
     let mover = function() {
         if (rect.xpos <= xaux) {
             activeButton(false);
             cancelAnimationFrame(mover);
+            //groundB(rectArray[rectArray.length - 1]);
+            xd = false;
             return 0;
         } else {
             requestAnimationFrame(mover);
         }
+        if (xd) {
+            context.clearRect(0, 0, width, height);
 
-        context.clearRect(0, 0, width, height);
+            for (let x = 0; x < recsz; x++) {
+                groundB(rectArray[rectArray.length - 1]);
+                rectArray[x].xpos -= 10;
+                rectArray[x].alto = 60;
+                rectArray[x].ancho = 70;
+                rectArray[x].draw();
+                //console.log(rectArray[rectArray.length - 1]);
+            }
 
-        for (let x = 0; x < recsz; x++) {
-            rectArray[x].xpos -= 10;
-            rectArray[x].alto = 60;
-            rectArray[x].ancho = 70;
-            rectArray[x].draw();
-            //console.log(rectArray[rectArray.length - 1]);
-            groundB(rectArray[rectArray.length - 1]);
-        }
-
-        if (arrsz != 0) {
-            for (let x = 0; x < arrsz; x++) {
-                arrowArray[x].x1 -= 10;
-                arrowArray[x].x2 -= 10;
-                arrowArray[x].draw();
+            if (arrsz != 0) {
+                for (let x = 0; x < arrsz; x++) {
+                    arrowArray[x].x1 -= 10;
+                    arrowArray[x].x2 -= 10;
+                    arrowArray[x].draw();
+                }
             }
         }
+
     }
     mover();
 }
@@ -498,7 +579,7 @@ function toRight() { //desplaza toda la lista hacia la derecha
     mover();
 }
 
-function toRightP(position) { //desplaza toda la lista hacia la derecha
+function toRightP(position, rectAux) { //desplaza toda la lista hacia la derecha
     let rect = rectArray[position];
     let xaux = rect.xpos + 200;
     let recsz = rectArray.length;
@@ -507,31 +588,35 @@ function toRightP(position) { //desplaza toda la lista hacia la derecha
     let moverL = function() {
         if (rect.xpos >= xaux) {
             activeButton(false);
-        attempt++; //aumenta número de nodos
-        console.log(rectArray);
+            attempt++; //aumenta número de nodos
+            console.log(rectArray);
 
-        rectArray.splice(position, 0, rectAux);
-        rectAux.draw(context); //Dibujar rectangulo
-        console.log(rectArray);
-        let updateRect = function() { //función que hace crecer el rect
-            if (rectAux.ancho == 70 && rectAux.alto == 60) {
-                rectAux.show = 1; //una vez cargado el rect, muestra el numero
-                activeButton(false);
-                cancelAnimationFrame(updateRect);
-                rectAux.draw(context);
-                arrowsBD(rectAux);
-                return 0;
-            } else requestAnimationFrame(updateRect);
-            update(rectAux); //actualiza el tamaño del rect
+            rectArray.splice(position, 0, rectAux);
+            rectAux.draw(context); //Dibujar rectangulo
+            console.log(rectArray);
+            var abc = false;
+            let updateRect = function() { //función que hace crecer el rect
+                if (rectAux.ancho == 70 && rectAux.alto == 60) {
+                    rectAux.show = 1; //una vez cargado el rect, muestra el numero
+                    activeButton(false);
+                    cancelAnimationFrame(updateRect);
+                    // rectAux.draw(context);
+                    console.log(rectArray);
 
-            if (attempt == 1) {
-                ground(rectAux); //se dibuja la tierra
+
+                    abc = true;
+                    //return 0;
+                } else requestAnimationFrame(updateRect);
+                update(rectAux); //actualiza el tamaño del rect
+                if (abc) arrowsBD(rectAux, position);
+                if (attempt == 1) {
+                    ground(rectAux); //se dibuja la tierra
+                }
+
             }
-
-        }
-        updateRect();
-        cancelAnimationFrame(moverL);
-       // return 0;
+            updateRect();
+            cancelAnimationFrame(moverL);
+            return 0;
             //groundRelocate(rect);
         } else {
             requestAnimationFrame(moverL);
@@ -555,8 +640,69 @@ function toRightP(position) { //desplaza toda la lista hacia la derecha
     moverL();
 }
 
+//Sobrecarga de metodos
+function arrowDeleteXPos(indice) { //borra una flecha
+    let arr = arrowArray[indice];
+    arr.xanim = 1;
+    arr.yanim = 30;
+    let arrowDelx = function() {
+        if (arr.ready == 1) {
+            activeButton(false);
+            arrowArray.splice(indice, 1)
+            console.log(arrowArray);
+            updateAllXPos(indice);
+            cancelAnimationFrame(arrowDelx);
+            return 0;
+        } else {
+            activeButton(true);
+            requestAnimationFrame(arrowDelx);
+        }
+        arrowDeleteAnimation(arr);
+    }
+    arrowDelx();
+}
+
+function updateAllXPos(indice) { //desplaza toda la lista hacia la izquierda
+    let rect = rectArray[indice];
+    let xaux = rect.xpos - 200;
+    let arrsz = arrowArray.length;
+    let recsz = rectArray.length;
+
+    let xd = true;
+    let mover = function() {
+        if (rect.xpos <= xaux) {
+            activeButton(false);
+            cancelAnimationFrame(mover);
+            xd = false;
+            return 0;
+        } else {
+            requestAnimationFrame(mover);
+        }
+        if (xd) {
+            context.clearRect(rect.xpos - 1, 0, width, height);
+
+            for (let x = indice; x < recsz; x++) {
+                groundB(rectArray[rectArray.length - 1]);
+                rectArray[x].xpos -= 10;
+                rectArray[x].alto = 60;
+                rectArray[x].ancho = 70;
+                rectArray[x].draw();
+                //console.log(rectArray[rectArray.length - 1]);
+            }
+            if (arrsz != 0) {
+                for (let x = indice; x < arrsz; x++) {
+                    arrowArray[x].x1 -= 10;
+                    arrowArray[x].x2 -= 10;
+                    arrowArray[x].draw();
+                }
+            }
+        }
+    }
+    mover();
+}
+
 function activeButton(available) { //activación/desactivación de botones
-    let button = document.getElementsByClassName("button");
+    let button = document.getElementsByClassName("div-option");
     for (i = 0; i < button.length; i++) button[i].disabled = available;
 }
 
@@ -569,11 +715,16 @@ function loadEvents() {
     let insert_l = document.getElementById("ipp");
     let delete_end = document.getElementById("eu");
     let delete_b = document.getElementById("ep");
+    let delete_p = document.getElementById("epp");
+    let delete_val = document.getElementById("ev");
+    let localS = document.getElementById("ls");
     insert_f.addEventListener("click", function() { insertEnd(code); }, false);
     insert_b.addEventListener("click", function() { insertBeginning(code); }, false);
     insert_l.addEventListener("click", function() { insert(code); }, false);
     delete_end.addEventListener("click", function() { deleteEnd(code); }, false);
     delete_b.addEventListener("click", function() { deleteFirst(code); }, false);
+    delete_p.addEventListener("click", function() { deletePosition(code); }, false);
+    delete_val.addEventListener("click", function() { deleteValue(code); }, false);
 }
 window.addEventListener("load", loadEvents, false);
 
