@@ -126,25 +126,37 @@ function insertEnd(code) { //INSERTA UN NODO AL FINAL DE LA LISTA
 
         rect.draw(context); //Dibujar rectangulo
         rectArray.push(rect); //agrega el rect a un arreglo
-
+         let bandera = false;
         let updateRect = function() { //función que hace crecer el rect
             if (rect.ancho == 70 && rect.alto == 60) {
                 rect.show = 1; //una vez cargado el rect, muestra el numero
                 activeButton(false);
                 cancelAnimationFrame(updateRect);
+                 bandera = true;
+
             } else requestAnimationFrame(updateRect);
             update(rect); //actualiza el tamaño del rect
             var rectF = rectArray[attempt - 1];
             ground(rectF); //se dibuja la tierra
+
+            if(bandera) {
+                for(let i=0; i<arrowArray.length; i++){
+                    arrowArray[i].draw();
+                }
+            }
+
+         
         }
         updateRect();
+/*        if(bandera) {
+            for(let i=0; i<rectArray;i++){
+                arrows(rectArray[i]); //dibuja una flecha
+            }
+        }*/
         if (attempt == 0)
             groundDelete(rect);
 
-
         localStorage.setItem("qrect" + attempt, number);
-
-
     } else return alert("La lista esta llena y no es posible agregar más nodos.")
 }
 
@@ -188,23 +200,26 @@ function insertBeginning(code) { // INSERTA UN NODO AL PRINCIPIO DE LA LISTA
         if (attempt == 0)
             groundDelete(rect);
 
-        // if(localStorage.getItem("qrect"+ 1)){
-        //     for (let x = 1; x < 6; x++){
-        //         let auxlocal = localStorage.getItem("qrect"+ x);     
-        //         localStorage.setItem("qrect" + x+1, auxlocal);   
-        //     }
-        // }
-        //else
-        localStorage.setItem("qrect" + attempt, number);
+    localStorage.setItem("qrect" + attempt, number);
+    auxArray = [];
+    auxArray.push(number);
+    for (let i = 1; i < 7; i++) {
+        if (null != localStorage.getItem("qrect" + i)) {
+            let localAux = localStorage.getItem("qrect" + i);
+            auxArray.push(localAux);
+        } else break;
+    }
+    for (let i = 1; i < auxArray.length; i++) {
+        localStorage.setItem("qrect" + i, auxArray[(i - 1)]);
+    }
     } else return alert("La lista esta llena y no es posible agregar más nodos.");
 }
 
 function insert(code) { // INSERTA UN NODO EN X PARTE DE LA LISTA
-    let arzs = arrowArray.length;
     let rezs = rectArray.length;
     let position = parseInt(document.getElementById("pos").value) - 1;
     if (attempt != 6) {
-        if (rezs == 0 || indice > rezs || indice < 0) {
+        if (rezs == 0 || position > rezs || position < 0) {
             alert("Error: posición inexistente");
             return 0;
         }
@@ -223,7 +238,21 @@ function insert(code) { // INSERTA UN NODO EN X PARTE DE LA LISTA
         console.log(rect_aux);
         toRightP(position, rect);
 
-        //localStorage.setItem("qcircle" + attempt, number);
+    auxArray = [];
+    //position == 1   insertando en 2
+    for (let i = 1; i < 7 ; i++) {
+        if (null != localStorage.getItem("qrect" + i)) {
+            let localAux = localStorage.getItem("qrect" + i);
+            if(i == (position + 1)) auxArray.push(number);
+            auxArray.push(localAux);
+        } else break;
+    } //rc1 
+    //auxArray.push(number);//ingresar el numero rc2
+    // rc1 rc2 rc3
+       //1 2 3 
+    for (let i = 1; i <= auxArray.length; i++) {
+        localStorage.setItem("qrect" + i, auxArray[(i - 1)]);
+    }
     } else return alert("La lista esta llena y no es posible agregar más nodos.")
 }
 
@@ -255,7 +284,11 @@ function deleteFirst(code) { //ELIMINA UN NODO AL PRINCIPIO DE LA LISTA
             invers(rect);
         }
         discardRect();
-
+        localStorage.removeItem("qrect1");
+        for (let i = 1; i < attempt; i++) {
+            localStorage.setItem("qrect" + i, localStorage.getItem("qrect" + (i + 1)));
+        }
+        localStorage.removeItem("qrect" + attempt);
         attempt--;
     } else return alert("Error: No hay nodos existentes");
 }
@@ -281,6 +314,8 @@ function deleteEnd(code) { //ELIMINA EL ÚLTIMO NODO DE LA LISTA
         groundDelete(rect);
         discardRect();
         rectArray.pop();
+        localStorage.removeItem("qrect"+attempt);
+
         attempt--;
     } else return alert("Error. No hay nodos existentes");
 }
@@ -322,6 +357,30 @@ function deletePosition(code) {
             }
             discardRect();
         }
+
+        auxArray = [];
+        //position == 1   insertando en 2
+        for (let i = 1; i < 7 ; i++) {
+            if (null != localStorage.getItem("qrect" + i)) {
+                let localAux = localStorage.getItem("qrect" + i);
+                if(i != (indice + 1)) auxArray.push(localAux);
+                //auxArray.push(localAux);
+            } else break;
+        } //rc1 
+
+        for (let i = 1; i < 7 ; i++) {
+            if (null != localStorage.getItem("qrect" + i)) {
+                localStorage.removeItem("qrect" + i);
+            } else break;
+        } //rc1 
+        //auxArray.push(number);//ingresar el numero rc2
+        // rc1 rc2 rc3
+        //1 2 3 
+        for (let i = 1; i <= auxArray.length; i++) {
+            localStorage.setItem("qrect" + i, auxArray[(i - 1)]);
+        }
+
+
     } else return alert("Error. No hay nodos existentes");
 }
 
@@ -602,16 +661,14 @@ function toRightP(position, rectAux) { //desplaza toda la lista hacia la derecha
                     cancelAnimationFrame(updateRect);
                     // rectAux.draw(context);
                     console.log(rectArray);
-
-
                     abc = true;
                     //return 0;
                 } else requestAnimationFrame(updateRect);
                 update(rectAux); //actualiza el tamaño del rect
                 if (abc) arrowsBD(rectAux, position);
                 if (attempt == 1) {
-                    ground(rectAux); //se dibuja la tierra
-                }
+                   ground(rectAux); //se dibuja la tierra
+                } else groundRelocate(rectAux);
 
             }
             updateRect();
@@ -700,6 +757,19 @@ function updateAllXPos(indice) { //desplaza toda la lista hacia la izquierda
     }
     mover();
 }
+function loadList() {
+    context.clearRect(0, 0, width, height);
+    attempt = 0;
+    //nueva instancia
+    rectArray = [];
+    arrowArray = [];
+    for (let j = 1; j < 7; j++) {
+        if (localStorage.getItem("qrect" + j)) {
+            document.getElementById("number").value = parseInt(localStorage.getItem("qrect" + j));
+            insertEnd();
+        } else break;
+    }
+}
 
 function activeButton(available) { //activación/desactivación de botones
     let button = document.getElementsByClassName("div-option");
@@ -725,6 +795,7 @@ function loadEvents() {
     delete_b.addEventListener("click", function() { deleteFirst(code); }, false);
     delete_p.addEventListener("click", function() { deletePosition(code); }, false);
     delete_val.addEventListener("click", function() { deleteValue(code); }, false);
+    localS.addEventListener("click", function() { loadList(); }, false);
 }
 window.addEventListener("load", loadEvents, false);
 
